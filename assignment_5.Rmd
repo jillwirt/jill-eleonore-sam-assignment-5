@@ -10,3 +10,36 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 Welcome to assignment 5!!!!!!!!
+
+```{r, echo = FALSE}
+# Load packages and read in data
+library(tidyverse)
+library(vcdExtra)
+library(car)
+library(onewaytests)
+library(kableExtra)
+library(ggsignif)
+library(effsize)
+library(xtable)
+library(stringr)
+
+faculty_salary <- read_csv("faculty_salary.csv")
+faculty_salary
+
+grad_enrollment <- read_csv("grad_enrollment.csv")
+grad_enrollment
+
+med_salary <- read_csv("med_salary.csv")
+med_salary
+
+phd_by_field <- read_csv("phd_by_field.csv")
+phd_by_field
+
+```
+
+Part 1. Compare trends in total graduate enrollment for males and females (including full-time/part-time and private/public universities) in the U.S. from 1967-2015.
+```{r}
+
+
+```
+
