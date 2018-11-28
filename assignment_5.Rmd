@@ -40,17 +40,12 @@ phd_by_field <- read_csv("phd_by_field.csv")
 Part 1. Compare trends in total graduate enrollment for males and females (including full-time/part-time and private/public universities) in the U.S. from 1967-2015.
 ```{r}
 
-# How do we group these graphs? Or just make one showing proportions 'y = total_males / total_females'?
+enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
+  geom_line(aes(y = total_males, color = "total_males"))+
+  geom_line(aes(y = total_females, color = "total_females"))
 
-male_enrollment_trend <- ggplot(grad_enrollment, aes(x = year, y = total_males)) +
-  geom_point()
+enrollment_trend
 
-male_enrollment_trend
-
-female_enrollment_trend <- ggplot(grad_enrollment, aes(x = year, y = total_females)) +
-  geom_point()
-
-female_enrollment_trend
 ```
 
 Part 2. Describe if and how there was a shift in PhDs awarded to females in four fields (Physical and Earth Sciences, Engineering, Education, and Humanities & Arts) in 1985, 2000, and 2015. 
