@@ -75,7 +75,7 @@ enrollment_trend
 
 
 ```{r}
-# t-test or Mann-Whitney U
+# Mann-Whitney U
 
 
 
@@ -90,7 +90,6 @@ enrollment_trend
 
 ```{r}
 # Chi-squared
-
 
 
 
