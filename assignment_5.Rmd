@@ -91,8 +91,18 @@ enrollment_trend
 ```{r}
 # Chi-squared
 
+#A. Create a new table (df?) 
+#B. Create a contingency table that's "useable" for chi-square tests to compare proportions.
+#C. make the contigency table look good to present in paper.
+#D. Run the chi-square!
 
+grad_totals <- 
+ count(SITE, SIZE) %>%
+  spread(SIZE, n) %>% 
+  select(-SITE)
+   
 
+rownames(legal_size)<- c("AQUE", "CARP", "IVEE", "MOHK", "NAPL")
 
 
 
