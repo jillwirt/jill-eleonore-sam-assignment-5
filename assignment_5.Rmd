@@ -81,48 +81,13 @@ qq_female_enrol
 
 ```
 
-
-```{r}
-# Mann-Whitney U
-
-
-
-
-
-
-
-
-
-```
-
-
-```{r}
-# Chi-squared
-
-#A. Create a new table (df?) 
-#B. Create a contingency table that's "useable" for chi-square tests to compare proportions.
-#C. make the contigency table look good to present in paper.
-#D. Run the chi-square!
-
-grad_totals <- 
- count(SITE, SIZE) %>%
-  spread(SIZE, n) %>% 
-  select(-SITE)
-   
-
-rownames(legal_size)<- c("AQUE", "CARP", "IVEE", "MOHK", "NAPL")
-
-
-
-
-```
-
 Part 2. Describe if and how there was a shift in PhDs awarded to females in four fields (Physical and Earth Sciences, Engineering, Education, and Humanities & Arts) in 1985, 2000, and 2015. 
 
 
 
 Part 3. Compare median salaries for male and female doctorate recipients in 2015. Answer these two questions: Does median salary differ significantly between male and female starting postdoc positions? Does median salary differ significantly between male and female PhD recipients in non-postdoc employent positions?
 ```{r}
+
 # Mann-Whitney U to compare medians?
 
 
