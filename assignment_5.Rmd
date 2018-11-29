@@ -53,9 +53,30 @@ enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
 
 enrollment_trend 
 
+# Statistical evidence with linear regression
+
+males_lm <- lm(year ~ total_males, data = grad_enrollment)
+
+females_lm <- lm(year ~ total_females, data = grad_enrollment)
+plot(males_lm)
+plot(females_lm)
+
+regress_male <- ggplot(grad_enrollment, aes(x=year, y= total_males)) +
+  geom_point()+
+  geom_smooth(method= lm, se= TRUE, size= 0.5, color="gray20")
 
 
+
+regress_female <- ggplot(grad_enrollment, aes(x=year, y= total_females)) +
+  geom_point()+
+  geom_smooth(method= lm, se= TRUE, size= 0.5, color="gray20")
+
+regress_female
+regress_male
+
+#and then pearson's r
 ```
+
 
 
 ```{r}
