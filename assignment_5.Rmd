@@ -60,16 +60,24 @@ enrollment_trend
 
 ```{r}
 # checking for normality
+hist_male_enrol<-ggplot(grad_enrollment, aes(x=total_males)) +
+  geom_histogram()
 
+hist_male_enrol
 
+qq_male_enrol <- ggplot(grad_enrollment, aes(sample=total_males)) +
+  geom_qq()
 
+qq_male_enrol
 
+hist_female_enrol <- ggplot(grad_enrollment, aes(x=total_females)) +
+  geom_histogram()
 
+qq_female_enrol <- ggplot(grad_enrollment, aes(sample=total_females)) +
+  geom_qq()
 
-
-
-
-
+hist_female_enrol
+qq_female_enrol
 
 ```
 
