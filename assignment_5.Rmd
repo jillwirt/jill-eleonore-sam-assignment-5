@@ -104,6 +104,14 @@ qq_female_enrol
 
 Part 2. Describe if and how there was a shift in PhDs awarded to females in four fields (Physical and Earth Sciences, Engineering, Education, and Humanities & Arts) in 1985, 2000, and 2015. 
 
+```{r}
+phd<- phd_by_field %>% 
+  select(field_of_study,`1985_number`, `2000_number`, `2015_number` ) %>% 
+  filter(field_of_study == "physical_earth_science_female" | field_of_study =="engineering_female" | field_of_study == "education_female" | field_of_study == "humanities_female")
+
+```
+
+
 
 
 Part 3. Compare median salaries for male and female doctorate recipients in 2015. Answer these two questions: Does median salary differ significantly between male and female starting postdoc positions? Does median salary differ significantly between male and female PhD recipients in non-postdoc employent positions?
