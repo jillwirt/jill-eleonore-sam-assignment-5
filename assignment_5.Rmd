@@ -44,7 +44,7 @@ Part 1. Compare trends in total graduate enrollment for males and females (inclu
 enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
   geom_line(aes(y = total_males, color = "Male"))+
   geom_line(aes(y = total_females, color = "Female")) +
-  labs(x = "Year", y = "Enrollment of Students", caption = str_wrap("Figure 1: Enrollment trends for males and females from 1967 to 2015.")) +
+  labs(x = "Year", y = "Number of Students Enrolled", caption = str_wrap("Figure 1: Enrollment trends for males and females from 1967 to 2015.")) +
   theme_classic() +
   theme(plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)), text = element_text(family="Times New Roman", size=11),  legend.title=element_blank()) +
   scale_x_continuous(expand = c(0,10), breaks = c(1955, 1965, 1975, 1985, 1995, 2005, 2015)) +
@@ -52,6 +52,51 @@ enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
   scale_color_manual(values=c("red", "blue"))
 
 enrollment_trend 
+
+
+
+```
+
+
+```{r}
+# checking for normality
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+```{r}
+# t-test or Mann-Whitney U
+
+
+
+
+
+
+
+
+
+```
+
+
+```{r}
+# Chi-squared
+
+
+
+
+
+
+
 
 ```
 
