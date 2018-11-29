@@ -96,6 +96,52 @@ Part 3. Compare median salaries for male and female doctorate recipients in 2015
 
 Part 4. Explore relationships between variables in the 'Faculty salary data (2008-2009)' dataset (faculty_salary). Develop a model describing faculty salary based on data for faculty sex, rank, years in current position, field, and number of years since doctoral degree was earned. YOU should make decisions regarding which variables should remain in your final model. 
 
+```{r}
+
+#A. Go exploring (visual) + think critically about variables
+
+#Relationship 1: Explore faculty salary by sex
+
+mean_by_sex <- faculty_salary %>% 
+  group_by(sex) %>% 
+  summarize(
+    mean = mean(salary)
+  )
+
+# b. Visualize salaries by sex
+by_sex <- ggplot(faculty_salary, aes(x = salary)) +
+  geom_density(aes(color = sex, fill = sex), alpha = 0.3) + # Note: just to show what the geom_violin shows
+  theme_classic() +
+  scale_y_continuous(expand = c(0,0)) +
+  labs(x = "Salary (USD)", y = "Sex")
+
+by_sex
+
+#Relationship 2: Explore faculty salary by rank
+
+mean_by_rank <- faculty_salary %>% 
+  group_by(faculty_rank) %>% 
+  summarize(
+    mean = mean(salary)
+  )
+
+by_rank <- ggplot(faculty_salary, aes(x = salary)) +
+  geom_density(aes(color = faculty_rank, fill = faculty_rank), alpha = 0.3) + # Note: just to show what the geom_violin shows
+  theme_classic() +
+  scale_y_continuous(expand = c(0,0)) +
+  labs(x = "Salary (USD)", y = "Faculty Rank")
+
+by_rank
+
+#Relationship 3: Explore faculty salary by years in current position
+
+#Relationship 4: Explore faculty salary by field
+
+#Relationship 5: Explore faculty salary by # years since PhD
+
+
+
+```
 
 
 
