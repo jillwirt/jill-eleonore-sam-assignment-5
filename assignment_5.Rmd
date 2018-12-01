@@ -175,7 +175,7 @@ mean_by_rank <- faculty_salary %>%
   )
 
 by_rank <- ggplot(faculty_salary, aes(x = salary)) +
-  geom_density(aes(color = faculty_rank, fill = faculty_rank), alpha = 0.3) + # Note: just to show what the geom_violin shows
+  geom_density(aes(color = faculty_rank, fill = faculty_rank), alpha = 0.3) +
   theme_classic() +
   scale_y_continuous(expand = c(0,0)) +
   labs(x = "Salary (USD)", y = "Faculty Rank")
@@ -184,11 +184,104 @@ by_rank
 
 #Relationship 3: Explore faculty salary by years in current position
 
+mean_by_years <- faculty_salary %>% 
+  group_by(years_faculty_service) %>% 
+  summarize(
+    mean = mean(salary)
+  )
+
+by_years <- ggplot(faculty_salary, aes(x = years_faculty_service, y= salary)) +
+  geom_point(aes(color = years_faculty_service, fill = years_faculty_service), alpha = 0.3) + # 
+  theme_classic() +
+  scale_y_continuous(expand = c(0,0)) +
+  labs(x = "Years of Faculty Service", y = "Salary (USD)")
+
+by_years
+
+#?? should I make a histogram or qqplot instead to assess normality?
+
+hist_years_service <- ggplot(faculty_salary, aes(x = years_faculty_service)) +
+  geom_histogram()
+hist_years_service # does NOT look normally distributed!
+
+qq_service <- ggplot(faculty_salary, aes(sample=years_faculty_service)) +
+  geom_qq()
+qq_service # this has kinda an exponential look to it--not normally distributed and dont include in model?!
+
 #Relationship 4: Explore faculty salary by field
+
+#??? Note sure about the A/B situation...
+
+mean_by_discip <- faculty_salary %>% 
+  group_by(discipline) %>% 
+  summarize(
+    mean = mean(salary)
+  )
+
+by_discip <- ggplot(faculty_salary, aes(x = salary)) +
+  geom_density(aes(color = discipline, fill = discipline), alpha = 0.3) +
+  theme_classic() +
+  scale_y_continuous(expand = c(0,0)) +
+  labs(x = "Discipline", y = "Salary (USD)")
+
+by_discip
 
 #Relationship 5: Explore faculty salary by # years since PhD
 
+mean_by_phd <- faculty_salary %>% 
+  group_by(years_since_phd) %>% 
+  summarize(
+    mean = mean(salary)
+  )
 
+by_phd <- ggplot(faculty_salary, aes(x = years_since_phd, y= salary)) +
+  geom_point(aes(color = years_since_phd, alpha = 0.3)) +
+  theme_classic() +
+  scale_y_continuous(expand = c(0,0)) +
+  labs(x = "Years Since PhD", y = "Salary (USD)")
+
+by_phd
+
+#histogram to assess normality
+
+hist_phd <- ggplot(faculty_salary, aes(x = years_since_phd)) +
+  geom_histogram()
+hist_phd # this looks a bit more normally distributed than the years of sevice!
+
+qq_phd <- ggplot(faculty_salary, aes(sample=years_since_phd))+
+  geom_qq()
+qq_phd #this looks pretty normally distributed!
+
+# okay-- I think we need to take out either years since phd or years of service- they are basically the same thing. Which to take out?
+
+# Multi-Linear Regression Model: include rank, years in service, discipline, and sex (4 variables)
+
+salary_lm1 <- lm(salary ~ sex + faculty_rank + years_faculty_service + discipline, data = faculty_salary)
+salary_lm1
+
+#Interpretation: ???????? looking at coeffs for salary and sex, 
+
+summary(salary_lm1)
+
+#results: Yes, model is significant (p <0.001). R squared/adjusted r squared values are low though (0.45, 0.44). Significant differences exist for Asst Prof and Prof over Assoc Prof, and for Discipline (B over A-- what is B??)
+
+
+# Model Diagnostics-- remember, can only do these after making the model!
+
+plot(salary_lm1)
+
+#residuals variance (spread)- yes
+# qqplot- yessssss
+# dont really need to look at the others
+
+#overall, heteroscedasciticty is okay, residuals normality definitey looks good, and conceptually and mathmatically my model makes sense!
+
+#MODEL ATTEMPT 2: Took out Years of faculty service
+
+salary_lm2 <- lm(salary ~ sex + faculty_rank + years_since_phd + discipline, data = faculty_salary)
+salary_lm2
+
+summary(salary_lm2)
 
 ```
 
