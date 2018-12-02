@@ -227,7 +227,7 @@ by_years <- ggplot(faculty_salary, aes(x = years_faculty_service, y= salary)) +
 
 by_years
 
-#?? should I make a histogram or qqplot instead to assess normality?
+# Make histograms or qqplots instead to assess normality
 
 hist_years_service <- ggplot(faculty_salary, aes(x = years_faculty_service)) +
   geom_histogram()
@@ -313,6 +313,26 @@ salary_lm2
 summary(salary_lm2)
 
 plot(salary_lm2)
+
+#Try without years of service OR years since PhD??
+
+salary_lm3 <- lm(salary ~ sex + faculty_rank + discipline, data = faculty_salary)
+salary_lm3
+
+summary(salary_lm3)
+
+plot(salary_lm3)
+
+# Evaluate the models using AIC
+
+aic_lm1 <- AIC(salary_lm1)  #lower AIC (ran in Console) but worse model! see notes above
+aic_lm2 <- AIC(salary_lm2) #higher but better
+
+# Make a regression table using Stargazer.
+
+lm1_table <- stargazer(salary_lm1, type = "html")
+lm1_table
+
 
 ```
 
