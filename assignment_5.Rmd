@@ -109,6 +109,28 @@ phd<- phd_by_field %>%
   select(field_of_study,`1985_number`, `2000_number`, `2015_number` ) %>% 
   filter(field_of_study == "physical_earth_science_female" | field_of_study =="engineering_female" | field_of_study == "education_female" | field_of_study == "humanities_female")
 
+degree <- read_csv("phd_fields.csv")
+tidy_degree <- as.data.frame(degree) %>% 
+  expand.dft(freq="degrees_awarded")
+
+
+
+deg_graph <- ggplot(degree, aes(x=year, y=degrees_awarded)) +
+  geom_point() + 
+  geom_line(aes(color=study_field)) +
+  theme_classic()
+
+
+deg_graph
+
+hist_awarded <-ggplot(tidy_degree, aes(x=study_field))+
+  geom_bar() +
+  facet_wrap(~year, scale= "free")
+
+hist_awarded # this is probably pointless 
+
+#idea: do table chi square to see if year has significant effect on degrees awarded
+
 ```
 
 
