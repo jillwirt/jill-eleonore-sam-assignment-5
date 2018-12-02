@@ -44,6 +44,7 @@ Part 1. Compare trends in total graduate enrollment for males and females (inclu
 enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
   geom_line(aes(y = total_males, color = "Male"))+
   geom_line(aes(y = total_females, color = "Female")) +
+  geom_smooth()
   labs(x = "Year", y = "Number of Students Enrolled", caption = str_wrap("Figure 1: Enrollment trends for males and females from 1967 to 2015.")) +
   theme_classic() +
   theme(plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)), text = element_text(family="Times New Roman", size=11),  legend.title=element_blank()) +
@@ -66,7 +67,6 @@ regress_male <- ggplot(grad_enrollment, aes(x=year, y= total_males)) +
   geom_smooth(method= lm, se= TRUE, size= 0.5, color="gray20")
 
 
-
 regress_female <- ggplot(grad_enrollment, aes(x=year, y= total_females)) +
   geom_point()+
   geom_smooth(method= lm, se= TRUE, size= 0.5, color="gray20")
@@ -75,6 +75,17 @@ regress_female
 regress_male
 
 #and then pearson's r
+
+pearson_females <- cor.test(grad_enrollment$year, grad_enrollment$total_females)
+pearson_females
+
+# pearson's r = 0.9913086
+
+pearson_males <- cor.test(grad_enrollment$year, grad_enrollment$total_males)
+pearson_males
+
+# pearson's r = 0.9243741
+
 ```
 
 
@@ -102,16 +113,14 @@ qq_female_enrol
 
 ```
 
-Part 2. Describe if and how there was a shift in PhDs awarded to females in four fields (Physical and Earth Sciences, Engineering, Education, and Humanities & Arts) in 1985, 2000, and 2015. 
 
+Part 2. Describe if and how there was a shift in PhDs awarded to females in four fields (Physical and Earth Sciences, Engineering, Education, and Humanities & Arts) in 1985, 2000, and 2015. 
 ```{r}
 phd<- phd_by_field %>% 
   select(field_of_study,`1985_number`, `2000_number`, `2015_number` ) %>% 
   filter(field_of_study == "physical_earth_science_female" | field_of_study =="engineering_female" | field_of_study == "education_female" | field_of_study == "humanities_female")
 
 ```
-
-
 
 
 Part 3. Compare median salaries for male and female doctorate recipients in 2015. Answer these two questions: Does median salary differ significantly between male and female starting postdoc positions? Does median salary differ significantly between male and female PhD recipients in non-postdoc employent positions?
@@ -144,7 +153,6 @@ mwu_salary_employment
 
 
 Part 4. Explore relationships between variables in the 'Faculty salary data (2008-2009)' dataset (faculty_salary). Develop a model describing faculty salary based on data for faculty sex, rank, years in current position, field, and number of years since doctoral degree was earned. YOU should make decisions regarding which variables should remain in your final model. 
-
 ```{r}
 
 #A. Go exploring (visual) + think critically about variables
@@ -283,7 +291,16 @@ salary_lm2
 
 summary(salary_lm2)
 
+plot(salary_lm2)
+
 ```
 
+```{r}
+salary_sat <- lm(salary ~ sex + faculty_rank + years_since_phd + years_faculty_service + discipline, data = faculty_salary)
+salary_sat
+
+summary(salary_sat)
+
+```
 
 
