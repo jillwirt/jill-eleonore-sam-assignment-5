@@ -44,9 +44,9 @@ Part 1. Compare trends in total graduate enrollment for males and females (inclu
 enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
   geom_line(aes(y = total_males, color = "Male"))+
   geom_line(aes(y = total_females, color = "Female")) +
-  geom_smooth(aes(x = year, y = total_males, col = "Male"), method = lm, se = F) + 
-  geom_smooth(aes(x = year, y = total_females, col = "Female"), method = lm, se = F) +
-  labs(x = "Year", y = "Number of Students Enrolled", caption = str_wrap("Figure 1: Enrollment trends for males and females from 1967 to 2015.")) +
+  geom_smooth(aes(x = year, y = total_males, col = "Male"), method = lm, se = F, linetype = "dashed", size = 0.3) + 
+  geom_smooth(aes(x = year, y = total_females, col = "Female"), method = lm, se = F, linetype = "dashed", size = 0.3) +
+  labs(x = "Year", y = "Number of Students Enrolled") +
   theme_classic() +
   theme(plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)), text = element_text(family="Times New Roman", size=11),  legend.title=element_blank()) +
   scale_x_continuous(expand = c(0,10), breaks = c(1955, 1965, 1975, 1985, 1995, 2005, 2015)) +
@@ -60,15 +60,15 @@ enrollment_trend
 # Statistical evidence with linear regression
 
 males_lm <- lm(year ~ total_males, data = grad_enrollment)
-
+summary(males_lm)
 females_lm <- lm(year ~ total_females, data = grad_enrollment)
 plot(males_lm)
 plot(females_lm)
+summary(females_lm)
 
 regress_male <- ggplot(grad_enrollment, aes(x=year, y= total_males)) +
   geom_point()+
   geom_smooth(method= lm, se= TRUE, size= 0.5, color="gray20")
-
 
 regress_female <- ggplot(grad_enrollment, aes(x=year, y= total_females)) +
   geom_point()+
@@ -162,7 +162,7 @@ postdoc_male_hist <- ggplot(med_salary, aes(x = postdoc_study_male)) +
 postdoc_male_hist
 
 mwu_salary <- med_salary %>% 
-  wilcox.test(med_salary$postdoc_study_male, med_salary$postdoc_study_female, paired = TRUE, data = .) 
+  wilcox.test(med_salary$postdoc_study_male, med_salary$postdoc_study_female, paried = TRUE, data = .) 
 
 mwu_salary
 # there is not a significant difference in median salaries for postdoc males and females p = 0.8884
