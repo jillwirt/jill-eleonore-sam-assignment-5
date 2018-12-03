@@ -44,6 +44,8 @@ Part 1. Compare trends in total graduate enrollment for males and females (inclu
 enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
   geom_line(aes(y = total_males, color = "Male"))+
   geom_line(aes(y = total_females, color = "Female")) +
+  geom_smooth(aes(x = year, y = total_males, col = "Male"), method = lm, se = F) + 
+  geom_smooth(aes(x = year, y = total_females, col = "Female"), method = lm, se = F) +
   labs(x = "Year", y = "Number of Students Enrolled", caption = str_wrap("Figure 1: Enrollment trends for males and females from 1967 to 2015.")) +
   theme_classic() +
   theme(plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)), text = element_text(family="Times New Roman", size=11),  legend.title=element_blank()) +
@@ -52,6 +54,8 @@ enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
   scale_color_manual(values=c("red", "blue"))
 
 enrollment_trend 
+
+
 
 # Statistical evidence with linear regression
 
