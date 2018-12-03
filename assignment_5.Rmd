@@ -59,12 +59,15 @@ enrollment_trend
 
 # Statistical evidence with linear regression
 
-males_lm <- lm(year ~ total_males, data = grad_enrollment)
-summary(males_lm)
-females_lm <- lm(year ~ total_females, data = grad_enrollment)
-plot(males_lm)
-plot(females_lm)
-summary(females_lm)
+
+male_lm <- lm(total_males ~ year, data = grad_enrollment)
+summary(male_lm)
+
+female_lm <- lm(total_females ~ year, data = grad_enrollment)
+summary(female_lm)
+
+plot(male_lm)
+plot(female_lm)
 
 regress_male <- ggplot(grad_enrollment, aes(x=year, y= total_males)) +
   geom_point()+
