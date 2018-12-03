@@ -359,7 +359,7 @@ summary(salary_lm1)
 int_sex_dis <- lm(salary ~ sex + faculty_rank + years_faculty_service + discipline + sex * discipline, data = faculty_salary)
 summary(int_sex_dis)
 
-
+#no significant interactions between any of the variables
 
 ```
 
