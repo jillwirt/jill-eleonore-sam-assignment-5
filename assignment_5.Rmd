@@ -145,6 +145,11 @@ hist_awarded # this is probably pointless
 
 #idea: do table chi square to see if year has significant effect on degrees awarded
 
+phd_chi_data<- read_csv("chi_sq_data.csv")
+
+phd_chi_test <- chisq.test(phd_chi_data)
+phd_chi_test
+
 ```
 
 
