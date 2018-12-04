@@ -146,9 +146,12 @@ hist_awarded # this is probably pointless
 
 chi_phd_data <- read_csv("chi_sq_data.csv")
 
+phd_prop <- prop.table(as.matrix(chi_phd_data), 1)
+
 chi_test <- chisq.test(chi_phd_data)
 chi_test
 
+phd_prop #it's counting years in so it's off, which makes me think maybe the chi square is off too, so I will try and put in yr:1985 in each to make it a character string and hopefully that will work better. 
 
 
 ```
