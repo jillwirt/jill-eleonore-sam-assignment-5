@@ -55,19 +55,15 @@ enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
 
 enrollment_trend 
 
-
-
 # Statistical evidence with linear regression
 
+males_lm <- lm(total_males ~ year, data = grad_enrollment)
+summary(males_lm)
+females_lm <- lm(total_females ~ year, data = grad_enrollment)
+plot(males_lm)
+plot(females_lm)
+summary(females_lm)
 
-male_lm <- lm(total_males ~ year, data = grad_enrollment)
-summary(male_lm)
-
-female_lm <- lm(total_females ~ year, data = grad_enrollment)
-summary(female_lm)
-
-plot(male_lm)
-plot(female_lm)
 
 regress_male <- ggplot(grad_enrollment, aes(x=year, y= total_males)) +
   geom_point()+
@@ -90,7 +86,7 @@ pearson_females
 pearson_males <- cor.test(grad_enrollment$year, grad_enrollment$total_males)
 pearson_males
 
-# pearson's r = 0.9243741
+# pearson's r = 0.9243741 
 
 ```
 
@@ -148,11 +144,6 @@ hist_awarded # this is probably pointless
 
 #idea: do table chi square to see if year has significant effect on degrees awarded
 
-phd_chi_data<- read_csv("chi_sq_data.csv")
-
-phd_chi_test <- chisq.test(phd_chi_data)
-phd_chi_test
-
 ```
 
 
@@ -170,17 +161,26 @@ postdoc_male_hist <- ggplot(med_salary, aes(x = postdoc_study_male)) +
 postdoc_male_hist
 
 mwu_salary <- med_salary %>% 
-  wilcox.test(med_salary$postdoc_study_male, med_salary$postdoc_study_female, paried = TRUE, data = .) 
+  wilcox.test(med_salary$postdoc_study_male, med_salary$postdoc_study_female, paired = TRUE, data = .) 
 
 mwu_salary
-# there is not a significant difference in median salaries for postdoc males and females p = 0.8884
+# there is not a significant difference in median salaries for postdoc males and females p = 0.8884, (V = 19.5, p = 0.89)
 
+# Find effect size using cliff's delta
+salary_cliff <- cliff.delta(med_salary$postdoc_study_male, med_salary$postdoc_study_female)
+salary_cliff
+# cliff's delta = 0.04 (negligible) for median salaries for postdoc males and females
 
 mwu_salary_employment <- med_salary %>%
   wilcox.test(med_salary$employment_male, med_salary$employment_female, paired = TRUE, data = .)
 
 mwu_salary_employment
-# there is a significant difference in median salaries for non-postdoc employment for males and females p = 0.002572
+# there is a significant difference in median salaries for non-postdoc employment for males and females p = 0.002572, (V = 101, p = 0.003)
+
+# Find effect size using cliff's delta
+employment_cliff <- cliff.delta(med_salary$employment_male, med_salary$employment_female)
+employment_cliff
+# cliff's delta = 0.213 (small)
 
 ```
 
