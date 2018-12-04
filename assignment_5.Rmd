@@ -337,8 +337,9 @@ plot(salary_lm3)
 
 # Evaluate the models using AIC
 
-aic_lm1 <- AIC(salary_lm1)  #lower AIC (ran in Console) but worse model! see notes above
-aic_lm2 <- AIC(salary_lm2) #higher but better
+aic_lm1 <- AIC(salary_lm1)  #yes, use this even though slightly higher AIC (9096.81)
+aic_lm2 <- AIC(salary_lm2) # (9097.22)
+aic_lm_all <- AIC(salary_lm_all) #9093.83
 
 # Make a regression table using Stargazer.
 
