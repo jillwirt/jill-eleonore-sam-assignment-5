@@ -210,7 +210,7 @@ med_data_4graph <- gather(med_salary, status, Salary, employment_male, employmen
       status == "postdoc_study_male" ~ "Postdoc", 
       status == "employment_female" ~ "Employment", 
       status == "postdoc_study_female" ~ "Postdoc")) %>% 
-  select(field_of_study, Status, Gender, Salary)
+  select(field_of_study, Status, Gender, Salary) 
   
 
 ```
