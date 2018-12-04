@@ -144,7 +144,11 @@ hist_awarded # this is probably pointless
 
 #idea: do table chi square to see if year has significant effect on degrees awarded
 
-chi_phd_data <- read_csv("chi_sq_data.csv")
+chi_phd_data <- read_csv("chi_sq_data.csv") %>% 
+  select(education, engineering, humanities, physical_earth_science)
+
+rownames(chi_phd_data)<- c ("1985", "2000", "2015")
+
 
 phd_prop <- prop.table(as.matrix(chi_phd_data), 1)
 
