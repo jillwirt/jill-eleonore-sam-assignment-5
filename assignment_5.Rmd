@@ -23,6 +23,7 @@ library(effsize)
 library(xtable)
 library(stringr)
 library(ggpubr)
+library(stargazer)
 
 faculty_salary <- read_csv("faculty_salary.csv")
 # faculty_salary
@@ -310,6 +311,7 @@ qq_phd #this looks pretty normally distributed!
 # okay-- I think we need to take out either years since phd or years of service- they are basically the same thing. Which to take out?
 
 # Multi-Linear Regression Model: include rank, years in service, discipline, and sex (4 variables)
+salary_lm_all <- lm(salary ~ sex + faculty_rank + years_since_phd + years_faculty_service + discipline, data = faculty_salary)
 
 salary_lm1 <- lm(salary ~ sex + faculty_rank + years_faculty_service + discipline, data = faculty_salary)
 salary_lm1
@@ -347,7 +349,7 @@ salary_lm3
 
 summary(salary_lm3)
 
-plot(salary_lm3)
+plot(salary_lm3) 
 
 # Evaluate the models using AIC
 
@@ -369,15 +371,16 @@ cor_test<- faculty_salary %>%
   cor()
 cor_test
 
-salary_lm_all <- lm(salary ~ sex + faculty_rank + years_since_phd + years_faculty_service + discipline, data = faculty_salary)
+
 vif(salary_lm_all)
+vif(salary_lm1)
 
 
 #years_since_phd and years_faculty_service are highly correlated/collinear, so we will keep years_faculty_service because conceptually it makes more sense and two, it had the higher VIF value, so salary_lm1 is the right model to use. 
 
 #Do we need an interaction term? We would expect to see male/female and years_faculty_service to have a significant effect, but according to the model they don't. Maybe that's because there's an interaction between two variables. Let's test for that 
 
-summary(salary_lm1)
+summary(salary_lm1) 
 
 int_sex_dis <- lm(salary ~ sex + faculty_rank + years_faculty_service + discipline + sex * discipline, data = faculty_salary)
 summary(int_sex_dis)
