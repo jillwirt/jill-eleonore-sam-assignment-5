@@ -197,6 +197,22 @@ employment_cliff <- cliff.delta(med_salary$employment_male, med_salary$employmen
 employment_cliff
 # cliff's delta = 0.213 (small)
 
+med_data_4graph <- gather(med_salary, status, Salary, employment_male, employment_female, postdoc_study_male, postdoc_study_female) %>% 
+  mutate (
+    Gender= case_when(
+      status == "employment_male" ~ "Male", 
+      status == "postdoc_study_male" ~ "Male", 
+      status == "employment_female" ~ "Female", 
+      status == "postdoc_study_female" ~ "Female")) %>% 
+  mutate(
+    Status= case_when(
+      status == "employment_male" ~ "Employment", 
+      status == "postdoc_study_male" ~ "Postdoc", 
+      status == "employment_female" ~ "Employment", 
+      status == "postdoc_study_female" ~ "Postdoc")) %>% 
+  select(field_of_study, Status, Gender, Salary)
+  
+
 ```
 
 
