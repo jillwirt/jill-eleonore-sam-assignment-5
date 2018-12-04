@@ -201,7 +201,7 @@ employment_cliff
 
 
 Part 4. Explore relationships between variables in the 'Faculty salary data (2008-2009)' dataset (faculty_salary). Develop a model describing faculty salary based on data for faculty sex, rank, years in current position, field, and number of years since doctoral degree was earned. YOU should make decisions regarding which variables should remain in your final model. 
-```{r}
+```{r, results= 'asis'}
 
 #A. Go exploring (visual) + think critically about variables
 
@@ -306,7 +306,7 @@ hist_phd # this looks a bit more normally distributed than the years of sevice!
 
 qq_phd <- ggplot(faculty_salary, aes(sample=years_since_phd))+
   geom_qq()
-qq_phd #this looks pretty normally distributed!
+qq_phd #this looks pretty normally distributed! 
 
 # okay-- I think we need to take out either years since phd or years of service- they are basically the same thing. Which to take out?
 
@@ -359,8 +359,13 @@ aic_lm_all <- AIC(salary_lm_all) #9093.83
 
 # Make a regression table using Stargazer.
 
-lm1_table <- stargazer(salary_lm1, type = "html")
-lm1_table
+lm1_table <- stargazer(salary_lm_all, salary_lm1, type = "html", 
+                       digits=2,
+                       dep.var.labels = "Faculty Salary", 
+                       covariate.labels = c("Male", "Rank: Assistant Professor", "Rank: Professor", "Years Since PhD", "Years of Faculty Service", "Disicpline: Applied", "Y-Intercept"), 
+                       omit.stat = c("rsq"), 
+                       column.labels = c("Saturated Model", "Final Model"), 
+                       add.lines=list(c("AIC", round(AIC(salary_lm_all),1), round(AIC(salary_lm1),1))))
 
 colinearity_test<- faculty_salary %>% 
   select(years_since_phd, years_faculty_service, salary) %>% 
@@ -390,10 +395,7 @@ summary(int_sex_dis)
 ```
 
 ```{r}
-salary_sat <- lm(salary ~ sex + faculty_rank + years_since_phd + years_faculty_service + discipline, data = faculty_salary)
-salary_sat
 
-summary(salary_sat)
 
 ```
 
