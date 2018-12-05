@@ -211,7 +211,11 @@ med_data_4graph <- gather(med_salary, status, Salary, employment_male, employmen
       status == "employment_female" ~ "Employment", 
       status == "postdoc_study_female" ~ "Postdoc")) %>% 
   select(field_of_study, Status, Gender, Salary) 
-  
+
+med_graph <- ggplot(med_data_4graph, aes(x= field_of_study, y= Salary)) +
+  geom_col(aes(fill=Gender))
+
+med_graph
 
 ```
 
