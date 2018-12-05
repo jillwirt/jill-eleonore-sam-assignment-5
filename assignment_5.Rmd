@@ -163,7 +163,7 @@ phd_prop #it's counting years in so it's off, which makes me think maybe the chi
 
 
 Part 3. Compare median salaries for male and female doctorate recipients in 2015. Answer these two questions: Does median salary differ significantly between male and female starting postdoc positions? Does median salary differ significantly between male and female PhD recipients in non-postdoc employent positions?
-```{r}
+```{r, fig.width=10}
 
 postdoc_female_hist <- ggplot(med_salary, aes(x = postdoc_study_female)) +
   geom_histogram()
@@ -206,16 +206,34 @@ med_data_4graph <- gather(med_salary, status, Salary, employment_male, employmen
       status == "postdoc_study_female" ~ "Female")) %>% 
   mutate(
     Status= case_when(
-      status == "employment_male" ~ "Employment", 
+      status == "employment_male" ~ "Non Postdoc", 
       status == "postdoc_study_male" ~ "Postdoc", 
-      status == "employment_female" ~ "Employment", 
+      status == "employment_female" ~ "Non Postdoc", 
       status == "postdoc_study_female" ~ "Postdoc")) %>% 
   select(field_of_study, Status, Gender, Salary) 
 
 med_graph <- ggplot(med_data_4graph, aes(x= field_of_study, y= Salary)) +
-  geom_col(aes(fill=Gender))
+  geom_col(aes(fill=Gender), position="dodge") +
+  coord_flip() +
+  labs(x= "Field of Study", y= "Median Salary (in USD)") +
+  facet_wrap(~ Status)+
+  scale_y_continuous(breaks= seq(0,125000, by= 20000), expand= c(0,0))+
+  theme_classic() +
+  scale_fill_manual(values = c("pink1", "royalblue4"))
 
 med_graph
+
+med_graph_2 <- med_data_4graph %>% 
+  filter(Status == "Non Postdoc") %>% 
+  ggplot(aes(x= field_of_study, y= Salary)) +
+  geom_col(aes(fill=Gender), position="dodge") +
+  coord_flip() +
+  labs(x= "Field of Study", y= "Median Salary (in USD)") +
+  scale_y_continuous(breaks= seq(0,125000, by= 20000), expand= c(0,0)) +
+  theme_classic() +
+  scale_fill_manual(values = c("pink1", "royalblue4"))
+  
+med_graph_2
 
 ```
 
