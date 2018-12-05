@@ -52,7 +52,7 @@ enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
   theme(plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)), text = element_text(size=11),  legend.title=element_blank()) +
   scale_x_continuous(expand = c(0,10), breaks = c(1955, 1965, 1975, 1985, 1995, 2005, 2015)) +
   scale_y_continuous(expand = c(0, 200000), breaks = c(200000, 400000, 600000, 800000, 1000000, 1200000, 1400000, 1600000, 1800000)) +
-  scale_color_manual(values=c("pink1", "royalblue4"))
+  scale_color_manual(values=c("palevioletred1", "royalblue4"))
 
 enrollment_trend 
 
