@@ -49,10 +49,10 @@ enrollment_trend <- ggplot(grad_enrollment, aes(year)) +
   geom_smooth(aes(x = year, y = total_females, col = "Female"), method = lm, se = F, linetype = "dashed", size = 0.3) +
   labs(x = "Year", y = "Number of Students Enrolled") +
   theme_classic() +
-  theme(plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)), text = element_text(family="Times New Roman", size=11),  legend.title=element_blank()) +
+  theme(plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)), text = element_text(size=11),  legend.title=element_blank()) +
   scale_x_continuous(expand = c(0,10), breaks = c(1955, 1965, 1975, 1985, 1995, 2005, 2015)) +
   scale_y_continuous(expand = c(0, 200000), breaks = c(200000, 400000, 600000, 800000, 1000000, 1200000, 1400000, 1600000, 1800000)) +
-  scale_color_manual(values=c("red", "blue"))
+  scale_color_manual(values=c("pink1", "royalblue4"))
 
 enrollment_trend 
 
