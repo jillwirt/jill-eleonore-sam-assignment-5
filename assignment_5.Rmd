@@ -142,14 +142,14 @@ deg_graph
 
 hist_awarded <-ggplot(degree, aes(x=year, y=degrees_awarded))+
   geom_col(aes(fill=study_field)) +
-  theme_classic()
-
-geom_col(aes(fill=Gender), position="dodge") +
-  coord_flip() +
-  labs(x= "Field of Study", y= "Median Salary (in USD)") +
-  scale_y_continuous(breaks= seq(0,125000, by= 20000), expand= c(0,0)) +
   theme_classic() +
-  scale_fill_manual(values = c("pink1", "royalblue4"))
+  scale_x_continuous(breaks= seq(1985,2015, by= 15))+ 
+  labs(x= "Year", y="Number of Degrees Awarded") +
+  
+  scale_fill_manual(labels= c("Education", "Engineering", "Humanities", "Physical Earth Science"), values= c("pink", "tomato2", "orchid4", "deeppink4")) +
+  theme(legend.title = element_blank())
+
+
 
 hist_awarded # this is probably pointless 
 
@@ -241,7 +241,7 @@ med_graph_2 <- med_data_4graph %>%
   labs(x= "Field of Study", y= "Median Salary (in USD)") +
   scale_y_continuous(breaks= seq(0,125000, by= 20000), expand= c(0,0)) +
   theme_classic() +
-  scale_fill_manual(values = c("pink1", "royalblue4"))
+  scale_fill_manual(values = c("rosybrown1", "dodgerblue"))
   
 med_graph_2
 
